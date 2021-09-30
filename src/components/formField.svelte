@@ -68,6 +68,7 @@
 		font-size: 14px;
 		letter-spacing: 0.4px;
 		cursor: text;
+		user-select: none;
 	}
 	.labelFocused {
 		top: -9px;

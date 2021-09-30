@@ -1,9 +1,13 @@
 <script>
+	import PasswordCard from '../../components/passwordCard.svelte';
 	import InputForm from '../../components/inputForm.svelte';
 </script>
 
 <main>
 	<InputForm />
+	<div class="passwords">
+		<PasswordCard />
+	</div>
 </main>
 
 <style>
@@ -12,5 +16,8 @@
 		margin-left: auto;
 		margin-right: auto;
 		padding: 11px;
+	}
+	.passwords {
+		margin-top: 24px;
 	}
 </style>

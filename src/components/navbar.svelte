@@ -40,6 +40,7 @@
 		align-items: center;
 		position: relative;
 		margin-right: 21px;
+		user-select: none;
 	}
 	.link {
 		list-style: none;
@@ -48,11 +49,13 @@
 		font-family: 'Blinker', sans-serif;
 		width: 100px;
 		z-index: 1;
+		user-select: none;
 	}
 	.link a {
 		text-decoration: none;
 		color: grey;
 		transition: all 251ms;
+		user-select: none;
 	}
 	a:hover {
 		color: white;
