@@ -4,7 +4,7 @@
 	const toggleHover = () => (isHovering = !isHovering);
 </script>
 
-<button class="submitButton" on:mouseenter={toggleHover} on:mouseleave={toggleHover}>
+<button class="submitButton" type="submit" on:mouseenter={toggleHover} on:mouseleave={toggleHover}>
 	<span class="material-icons-outlined icon"> {isHovering ? 'east' : 'chevron_right'} </span>
 	<span class="buttonText"> Add </span>
 </button>
@@ -30,6 +30,7 @@
 		left: 10px;
 		transition: all 444ms;
 		z-index: 0;
+		user-select: none;
 	}
 	.buttonText {
 		font-size: 14px;
@@ -45,6 +46,7 @@
 		padding-right: 4px;
 		z-index: 1;
 		font-family: 'Poppins', sans-serif;
+		user-select: none;
 	}
 	.submitButton:hover {
 		width: 101px;

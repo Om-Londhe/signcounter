@@ -27,6 +27,7 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+		box-shadow: 0px 2px 11px 1px;
 	}
 	.logo {
 		margin-left: 21px;

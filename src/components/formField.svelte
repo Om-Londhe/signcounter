@@ -1,11 +1,13 @@
 <script>
 	export let value;
-	// export let type;
+	export let type;
 	export let id;
 	export let placeholder;
 	let isFocused = false;
+	let runtimeType = type;
 
 	const toggleFocus = () => (isFocused = !isFocused);
+	const toggleVisibility = () => (runtimeType = runtimeType === 'password' ? 'text' : 'password');
 </script>
 
 <svelte:head>
@@ -16,9 +18,22 @@
 </svelte:head>
 <div class="form-field" class:formFieldFocused={isFocused}>
 	<label for={id} class:labelFocused={isFocused || value.length}>{placeholder}</label>
-	<input on:focus={toggleFocus} on:blur={toggleFocus} bind:value {id} />
+	<input
+		type={type === 'password' ? runtimeType : type}
+		{id}
+		{value}
+		on:focus={toggleFocus}
+		on:blur={toggleFocus}
+		on:change
+	/>
 	{#if $$slots.icon}
 		<slot name="icon" />
+	{:else if type === 'password'}
+		{#if runtimeType === 'password'}
+			<span class="material-icons-round icon" on:click={toggleVisibility}> visibility </span>
+		{:else}
+			<span class="material-icons-round icon" on:click={toggleVisibility}> visibility_off </span>
+		{/if}
 	{:else}
 		<div />
 	{/if}
@@ -52,10 +67,12 @@
 		top: 9px;
 		font-size: 14px;
 		letter-spacing: 0.4px;
+		cursor: text;
 	}
 	.labelFocused {
 		top: -9px;
 		font-size: 12px;
+		cursor: auto;
 	}
 	input {
 		width: 100%;
@@ -71,5 +88,10 @@
 		font-family: 'Poppins', sans-serif;
 		letter-spacing: 0.4px;
 		caret-color: lightgrey;
+	}
+	.icon {
+		font-size: 18px;
+		color: white;
+		user-select: none;
 	}
 </style>
