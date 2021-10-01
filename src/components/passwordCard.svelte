@@ -1,9 +1,32 @@
-<div class="passwordCard">
+<script>
+	import { blur, scale } from 'svelte/transition';
+
+	export let title;
+	export let password;
+	let copied = false;
+
+	const copyPassword = () => {
+		if (!copied) {
+			navigator.clipboard.writeText(password);
+			copied = true;
+			setTimeout(() => (copied = false), 1421);
+		}
+	};
+</script>
+
+<div class="passwordCard" on:click|preventDefault={copyPassword}>
 	<div class="left">
-		<p class="title">Instagram</p>
+		<p class="title">{title}</p>
 		<p class="helperText">Click to copy</p>
 	</div>
 	<span class="material-icons-round icon"> content_copy </span>
+	{#if copied}
+		<div class="done" transition:blur={{ duration: 500 }}>
+			<span class="material-icons-outlined done-icon" in:scale={{ delay: 444 }} out:scale>
+				task_alt
+			</span>
+		</div>
+	{/if}
 </div>
 
 <style>
@@ -15,6 +38,8 @@
 		border: 1px solid #49375e;
 		display: flex;
 		align-items: center;
+		position: relative;
+		cursor: copy;
 	}
 	.left {
 		margin-left: 4px;
@@ -42,5 +67,21 @@
 	.icon {
 		color: white;
 		font-size: 18px;
+	}
+	.done {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		left: 0;
+		top: 0;
+		display: grid;
+		place-items: center;
+		background: rgba(0, 0, 0, 0.4);
+		backdrop-filter: blur(2px);
+		border-radius: 11px;
+	}
+	.done-icon {
+		color: #4bb543;
+		font-size: 30px;
 	}
 </style>

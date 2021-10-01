@@ -6,7 +6,7 @@
 <main>
 	<InputForm />
 	<div class="passwords">
-		<PasswordCard />
+		<PasswordCard title="Instagram" password="Password" />
 	</div>
 </main>
 

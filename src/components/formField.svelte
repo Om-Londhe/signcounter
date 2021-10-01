@@ -10,12 +10,6 @@
 	const toggleVisibility = () => (runtimeType = runtimeType === 'password' ? 'text' : 'password');
 </script>
 
-<svelte:head>
-	<link
-		href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
-		rel="stylesheet"
-	/>
-</svelte:head>
 <div class="form-field" class:formFieldFocused={isFocused}>
 	<label for={id} class:labelFocused={isFocused || value.length}>{placeholder}</label>
 	<input

@@ -1,5 +1,7 @@
 <script>
 	import { page } from '$app/stores';
+
+	const logout = () => {};
 </script>
 
 <svelte:head>
@@ -7,16 +9,22 @@
 </svelte:head>
 <nav class="nav">
 	<img class="logo" src="/logo.svg" alt="" />
-	<ul class="links">
-		<li class="indicator" style="left: {$page.path === '/dashboard' ? 0 : 'calc(100% - 100px)'};" />
-		<li class="link">
-			<a href="/dashboard" class:active={$page.path === '/dashboard'}>Home</a>
-		</li>
-		&nbsp;&nbsp;&nbsp;&nbsp;
-		<li class="link">
-			<a href="/dashboard/manage" class:active={$page.path === '/dashboard/manage'}>Manage</a>
-		</li>
-	</ul>
+	<div class="right">
+		<ul class="links">
+			<li
+				class="indicator"
+				style="left: {$page.path === '/dashboard' ? 0 : 'calc(100% - 100px)'};"
+			/>
+			<li class="link">
+				<a href="/dashboard" class:active={$page.path === '/dashboard'}>Home</a>
+			</li>
+			&nbsp;&nbsp;&nbsp;&nbsp;
+			<li class="link">
+				<a href="/dashboard/manage" class:active={$page.path === '/dashboard/manage'}>Manage</a>
+			</li>
+		</ul>
+		<span class="material-icons-round logoutIcon" on:click={logout}> logout </span>
+	</div>
 </nav>
 
 <style>
@@ -32,6 +40,11 @@
 	.logo {
 		margin-left: 21px;
 	}
+	.right {
+		display: flex;
+		align-items: center;
+		margin-right: 21px;
+	}
 	.links {
 		padding: 0;
 		margin: 0;
@@ -39,7 +52,6 @@
 		display: flex;
 		align-items: center;
 		position: relative;
-		margin-right: 21px;
 		user-select: none;
 	}
 	.link {
@@ -63,6 +75,13 @@
 	.active {
 		color: black !important;
 	}
+	.logoutIcon {
+		margin-left: 21px;
+		background: #cf6679;
+		padding: 11px;
+		border-radius: 50%;
+		cursor: pointer;
+	}
 	.indicator {
 		position: absolute;
 		width: 100px;
@@ -72,5 +91,10 @@
 		border-radius: 51px;
 		transition: all 444ms;
 		color: transparent;
+	}
+	@media only screen and (max-width: 750px) {
+		.links {
+			display: none;
+		}
 	}
 </style>

@@ -58,4 +58,16 @@
 	.submitButton:hover .icon {
 		left: calc(100% - 30px);
 	}
+	@media only screen and (max-width: 1200px) {
+		.submitButton {
+			width: 101px;
+		}
+		.buttonText {
+			left: 10px;
+			opacity: 1;
+		}
+		.icon {
+			left: calc(100% - 30px);
+		}
+	}
 </style>
