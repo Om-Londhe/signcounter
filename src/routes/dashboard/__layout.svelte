@@ -1,4 +1,5 @@
 <script>
+	import BottomNav from '../../components/bottomNav.svelte';
 	import Navbar from '../../components/navbar.svelte';
 </script>
 
@@ -8,5 +9,22 @@
 		rel="stylesheet"
 	/>
 </svelte:head>
-<Navbar />
-<slot />
+<main>
+	<Navbar />
+	<div class="content">
+		<slot />
+	</div>
+	<BottomNav />
+</main>
+
+<style>
+	main {
+		height: 100vh;
+		display: flex;
+		flex-direction: column;
+		overflow: hidden;
+	}
+	.content {
+		flex: 1;
+	}
+</style>
