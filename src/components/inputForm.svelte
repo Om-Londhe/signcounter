@@ -69,7 +69,7 @@
 		border-radius: 11px;
 		padding: 21px;
 		border: 1px solid #49375e;
-		background: #1f1a24;
+		background: #1f1b24;
 		transition: all 444ms ease-in-out;
 		position: relative;
 		max-height: 25px;
@@ -90,15 +90,14 @@
 		margin: 0;
 		padding: 0;
 		margin-left: 4px;
-		font-size: 18px;
-		font-weight: bold;
+		font-size: 16px;
+		font-weight: 600;
 		font-family: 'Poppins', sans-serif;
-		letter-spacing: 0.4px;
+		letter-spacing: 1px;
 		user-select: none;
 	}
 	.title-icons {
 		color: white;
-		margin-right: 8px;
 		user-select: none;
 		transition: all 444ms ease-in-out;
 	}
