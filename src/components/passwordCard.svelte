@@ -1,5 +1,5 @@
 <script>
-	import { blur, scale } from 'svelte/transition';
+	import { blur, scale, fly } from 'svelte/transition';
 
 	export let title;
 	export let password;
@@ -14,7 +14,7 @@
 	};
 </script>
 
-<div class="passwordCard" on:click|preventDefault={copyPassword}>
+<div class="passwordCard" on:click|preventDefault={copyPassword} class:copied>
 	<div class="left">
 		<p class="title">{title}</p>
 		<p class="helperText">Click to copy</p>
@@ -25,6 +25,7 @@
 			<span class="material-icons-outlined done-icon" in:scale={{ delay: 444 }} out:scale>
 				task_alt
 			</span>
+			<p class="copiedText" in:fly={{ y: 21, delay: 444, opacity: 0 }}>Copied</p>
 		</div>
 	{/if}
 </div>
@@ -40,6 +41,7 @@
 		align-items: center;
 		position: relative;
 		cursor: copy;
+		transition: border-color 444ms;
 	}
 	.left {
 		margin-left: 4px;
@@ -74,14 +76,28 @@
 		height: 100%;
 		left: 0;
 		top: 0;
-		display: grid;
-		place-items: center;
-		background: rgba(0, 0, 0, 0.4);
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		background: rgba(0, 11, 0, 0.4);
 		backdrop-filter: blur(2px);
 		border-radius: 11px;
 	}
 	.done-icon {
 		color: #4bb543;
 		font-size: 30px;
+		margin: 0;
+	}
+	.copiedText {
+		font-size: 16px;
+		color: #4bb543;
+		padding: 0;
+		margin: 0;
+		margin-top: 4px;
+		font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+	}
+	.copied {
+		border-color: #4bb543;
 	}
 </style>
