@@ -2,11 +2,13 @@
 	import FormField from './formField.svelte';
 	import SubmitButton from './submitButton.svelte';
 	import { fade } from 'svelte/transition';
+	import DeleteButton from './deleteButton.svelte';
+
+	export let title;
+	export let oldPassword;
 
 	let isInputFormExpanded = false;
-
-	let title = '';
-	let password = '';
+	let password = oldPassword;
 	let titleIcon;
 
 	const toggleIsInputFormExpanded = () => {
@@ -18,7 +20,7 @@
 		}
 	};
 
-	const addPassword = () => {
+	const updatePassword = () => {
 		console.log(title);
 		console.log(password);
 	};
@@ -28,24 +30,14 @@
 	class="inputForm"
 	class:inputFormExpanded={isInputFormExpanded}
 	in:fade
-	on:submit|preventDefault={addPassword}
+	on:submit|preventDefault={updatePassword}
 >
 	<div class="titleSection" on:click={toggleIsInputFormExpanded}>
-		<p class="title" class:titleExpanded={isInputFormExpanded}>Add a new Password</p>
+		<p class="title" class:titleExpanded={isInputFormExpanded}>{title}</p>
 		<span bind:this={titleIcon} class="material-icons-outlined title-icons">
 			{isInputFormExpanded ? 'expand_less' : 'add'}
 		</span>
 	</div>
-	<FormField
-		type="text"
-		placeholder="Title"
-		id={'title-input'}
-		value={title}
-		on:change={(e) => (title = e.target.value)}
-	>
-		<span class="material-icons-round icon" slot="icon"> alternate_email </span>
-	</FormField>
-	<div class="gap" />
 	<FormField
 		type="password"
 		placeholder="Password"
@@ -54,7 +46,10 @@
 		on:change={(e) => (password = e.target.value)}
 	/>
 	<div class="gap" />
-	<SubmitButton title=" Add " />
+	<div class="bottom">
+		<SubmitButton title="Update" />
+		<DeleteButton />
+	</div>
 </form>
 
 <style>
@@ -66,7 +61,7 @@
 		background: #1f1b24;
 		transition: all 444ms ease-in-out;
 		position: relative;
-		max-height: 25px;
+		max-height: 21px;
 		overflow: hidden;
 	}
 	.inputFormExpanded {
@@ -98,9 +93,9 @@
 	.gap {
 		height: 11px;
 	}
-	.icon {
-		font-size: 18px;
-		color: white;
-		user-select: none;
+	.bottom {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
 	}
 </style>

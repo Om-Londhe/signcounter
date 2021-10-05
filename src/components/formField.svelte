@@ -88,5 +88,6 @@
 		font-size: 18px;
 		color: white;
 		user-select: none;
+		cursor: pointer;
 	}
 </style>
