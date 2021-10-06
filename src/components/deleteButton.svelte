@@ -1,15 +1,16 @@
 <script>
 </script>
 
-<button class="submitButton" type="submit">
+<button class="deleteButton" type="submit">
 	<span class="material-icons-outlined icon"> delete </span>
 	<span class="buttonText">Delete</span>
 </button>
 
 <style>
 	@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
-	.submitButton {
+	.deleteButton {
 		height: 40px;
+		width: 40px;
 		outline: none;
 		border: 2px solid #cf6679;
 		border-radius: 21px;
@@ -17,7 +18,6 @@
 		position: relative;
 		cursor: pointer;
 		transition: all 444ms;
-		width: 40px;
 		overflow: hidden;
 		border: 1px solid #be5568;
 	}
@@ -27,7 +27,7 @@
 		top: calc(50% - 9px);
 		left: 9px;
 		transition: all 444ms;
-		z-index: 0;
+		z-index: 1;
 		user-select: none;
 		background: #cf6679;
 	}
@@ -43,22 +43,22 @@
 		background: #cf6679;
 		padding-left: 4px;
 		padding-right: 4px;
-		z-index: 1;
+		z-index: 0;
 		font-family: 'Poppins', sans-serif;
 		user-select: none;
 	}
-	.submitButton:hover {
+	.deleteButton:hover {
 		width: 111px;
 	}
-	.submitButton:hover span.buttonText {
+	.deleteButton:hover span.buttonText {
 		left: calc(50% - 11px);
 		opacity: 1;
 	}
-	.submitButton:hover .icon {
+	.deleteButton:hover .icon {
 		left: 10px;
 	}
 	@media only screen and (max-width: 1200px) {
-		.submitButton {
+		.deleteButton {
 			width: 111px;
 		}
 		.buttonText {

@@ -20,9 +20,11 @@
 <style>
 	main {
 		height: 100vh;
+		width: 100vw;
 		display: flex;
 		flex-direction: column;
 		overflow: hidden;
+		background: #121212;
 	}
 	.content {
 		flex: 1;

@@ -25,7 +25,13 @@
 			<span class="material-icons-outlined done-icon" in:scale={{ delay: 444 }} out:scale>
 				task_alt
 			</span>
-			<p class="copiedText" in:fly={{ y: 21, delay: 444, opacity: 0 }}>Copied</p>
+			<p
+				class="copiedText"
+				in:fly={{ y: 21, delay: 444, opacity: 0 }}
+				out:fly={{ y: 21, opacity: 0 }}
+			>
+				Copied!
+			</p>
 		</div>
 	{/if}
 </div>
@@ -81,7 +87,7 @@
 		align-items: center;
 		justify-content: center;
 		background: rgba(0, 11, 0, 0.4);
-		backdrop-filter: blur(2px);
+		backdrop-filter: blur(7px);
 		border-radius: 11px;
 	}
 	.done-icon {

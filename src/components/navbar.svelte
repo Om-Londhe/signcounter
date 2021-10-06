@@ -8,7 +8,9 @@
 	<link href="https://fonts.googleapis.com/css2?family=Blinker&display=swap" rel="stylesheet" />
 </svelte:head>
 <nav class="nav">
-	<img class="logo" src="/logo.svg" alt="" />
+	<a href="/">
+		<img class="logo" src="/logo.svg" alt="" />
+	</a>
 	<div class="right">
 		<ul class="links">
 			<li
@@ -39,6 +41,7 @@
 	}
 	.logo {
 		margin-left: 21px;
+		cursor: pointer;
 	}
 	.right {
 		display: flex;
