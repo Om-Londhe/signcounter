@@ -1,9 +1,12 @@
-<svelte:head>
-	<script
-		type="module"
-		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-	<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-</svelte:head>
+<script>
+	import { onMount } from 'svelte';
+
+	onMount(async () => {
+		await import('https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js');
+		await import('https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js');
+	});
+</script>
+
 <footer>
 	<div class="waves">
 		<div class="wave" id="wave1" />
@@ -12,11 +15,31 @@
 		<div class="wave" id="wave4" />
 	</div>
 	<ul class="social-icons">
-		<li><a href="/"><ion-icon name="logo-facebook" /></a></li>
-		<li><a href="/"><ion-icon name="logo-instagram" /></a></li>
-		<li><a href="/"><ion-icon name="logo-twitter" /></a></li>
-		<li><a href="/"><ion-icon name="logo-github" /></a></li>
-		<li><a href="/"><ion-icon name="logo-linkedin" /></a></li>
+		<li>
+			<a target="_blank" href="https://www.facebook.com/om.londhe.332/" class="logo-facebook">
+				<ion-icon name="logo-facebook" />
+			</a>
+		</li>
+		<li>
+			<a target="_blank" href="https://www.instagram.com/theomlondhe/" class="logo-instagram">
+				<ion-icon name="logo-instagram" />
+			</a>
+		</li>
+		<li>
+			<a target="_blank" href="https://twitter.com/OmLondhe2003" class="logo-twitter">
+				<ion-icon name="logo-twitter" />
+			</a>
+		</li>
+		<li>
+			<a target="_blank" href="https://github.com/Om-Londhe" class="logo-github">
+				<ion-icon name="logo-github" />
+			</a>
+		</li>
+		<li>
+			<a target="_blank" href="https://www.linkedin.com/in/omlondhe/" class="logo-linkedin">
+				<ion-icon name="logo-linkedin" />
+			</a>
+		</li>
 	</ul>
 </footer>
 
@@ -26,7 +49,7 @@
 		width: 100%;
 		background: #3586ff;
 		min-height: 100px;
-		padding: 20px 50px;
+		padding-top: 21px;
 	}
 	footer .social-icons {
 		position: relative;
@@ -41,13 +64,14 @@
 	}
 	footer .social-icons li a {
 		font-size: 2em;
-		color: #fff;
+		color: white;
 		margin: 0 10px;
-		display: inline-block;
+		display: grid;
+		place-items: center;
 		transition: 0.5s;
-	}
-	footer .social-icons li a:hover {
-		transform: translateY(-10px);
+		border-radius: 21px;
+		width: 44px;
+		height: 44px;
 	}
 	footer .wave {
 		position: absolute;
@@ -59,25 +83,25 @@
 		background-size: 1000px 100px;
 	}
 	footer .wave#wave1 {
-		z-index: 1000;
+		z-index: 10;
 		opacity: 1;
 		bottom: 0;
 		animation: animateWave_1 4s linear infinite;
 	}
 	footer .wave#wave2 {
-		z-index: 999;
+		z-index: 9;
 		opacity: 0.5;
 		bottom: 10px;
 		animation: animateWave_2 4s linear infinite;
 	}
 	footer .wave#wave3 {
-		z-index: 1000;
+		z-index: 10;
 		opacity: 0.2;
 		bottom: 15px;
 		animation: animateWave_1 3s linear infinite;
 	}
 	footer .wave#wave4 {
-		z-index: 999;
+		z-index: 9;
 		opacity: 0.7;
 		bottom: 20px;
 		animation: animateWave_2 3s linear infinite;
@@ -97,6 +121,50 @@
 		}
 		100% {
 			background-position-x: 1000px;
+		}
+	}
+
+	@media only screen and (min-width: 750px) {
+		footer .social-icons li a:hover {
+			transform: translateY(-7px) rotateZ(360deg);
+			border-radius: 50%;
+			background: white;
+		}
+		.logo-facebook:hover {
+			color: #3b5998;
+		}
+		.logo-instagram:hover {
+			color: #cd486b;
+		}
+		.logo-twitter:hover {
+			color: #1da1f2;
+		}
+		.logo-github:hover {
+			color: #333;
+		}
+		.logo-linkedin:hover {
+			color: #0e76a8;
+		}
+	}
+	@media only screen and (max-width: 750px) {
+		footer .social-icons li a {
+			border-radius: 50%;
+			background: white;
+		}
+		.logo-facebook {
+			color: #3b5998 !important;
+		}
+		.logo-instagram {
+			color: #cd486b !important;
+		}
+		.logo-twitter {
+			color: #1da1f2 !important;
+		}
+		.logo-github {
+			color: #333 !important;
+		}
+		.logo-linkedin {
+			color: #0e76a8 !important;
 		}
 	}
 </style>

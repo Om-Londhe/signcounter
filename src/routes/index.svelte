@@ -21,7 +21,10 @@
 		<div class="goalsContainer">
 			<h2 class="goalTitle">Our Goals</h2>
 			<div class="goals">
-				<GoalCard />
+				<GoalCard
+					goalNumber={1}
+					content="To protect you online by protecting your CounterSigns/Passwords."
+				/>
 			</div>
 		</div>
 	</div>
