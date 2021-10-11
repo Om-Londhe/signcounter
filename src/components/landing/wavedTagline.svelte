@@ -1,6 +1,11 @@
+<script>
+	import Login from './login.svelte';
+</script>
+
 <div class="layer-wave-separator" />
 <div class="tagline">
-	<p class="tagline-text">We are here to counter your CounterSigns!</p>
+	<p class="tagline-text">The one who is here to protect your Passwords!</p>
+	<Login />
 </div>
 <div class="layer-wave-separator flip" />
 

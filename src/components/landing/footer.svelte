@@ -14,6 +14,7 @@
 		<div class="wave" id="wave3" />
 		<div class="wave" id="wave4" />
 	</div>
+	<h1 class="social-title">My Socials</h1>
 	<ul class="social-icons">
 		<li>
 			<a target="_blank" href="https://www.facebook.com/om.londhe.332/" class="logo-facebook">
@@ -41,15 +42,24 @@
 			</a>
 		</li>
 	</ul>
+	<p class="dev">
+		<ion-icon name="code-outline" class="icon" /> &nbsp;with&nbsp;
+		<ion-icon name="heart" class="icon" style="color: #ED4956;" />&nbsp;by Om Londhe using&nbsp;
+		<img src="/svelte.png" alt="" />
+	</p>
+	<p class="copyright">Copyright &copy; Om Prashant Londhe 2021</p>
 </footer>
 
 <style>
+	@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+	@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 	footer {
 		position: relative;
 		width: 100%;
 		background: #3586ff;
-		min-height: 100px;
 		padding-top: 21px;
+		height: 250px;
+		user-select: none;
 	}
 	footer .social-icons {
 		position: relative;
@@ -105,6 +115,45 @@
 		opacity: 0.7;
 		bottom: 20px;
 		animation: animateWave_2 3s linear infinite;
+	}
+	.social-title {
+		font-family: 'Poppins', sans-serif;
+		font-size: 24px;
+		text-align: center;
+		width: 100%;
+		margin: 0;
+		padding: 0;
+		padding-bottom: 4px;
+		color: white;
+	}
+
+	.dev,
+	.copyright {
+		color: white;
+		text-align: center;
+	}
+
+	.dev {
+		margin-top: 51px;
+		margin-bottom: 21px;
+		font-size: 18px;
+		font-family: 'Ubuntu', sans-serif;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	.dev img {
+		height: 24px;
+	}
+	.icon {
+		font-size: 24px;
+		margin: 0;
+		padding: 0;
+	}
+	.copyright {
+		font-size: 13px;
+		letter-spacing: 0.5px;
+		font-family: 'Poppins', sans-serif;
 	}
 
 	@keyframes animateWave_1 {

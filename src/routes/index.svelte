@@ -5,6 +5,7 @@
 	import WavedTagline from '../components/landing/wavedTagline.svelte';
 	import Footer from '../components/landing/footer.svelte';
 	import Goals from '../components/landing/goals.svelte';
+	import About from '../components/landing/about.svelte';
 
 	let scrollY;
 </script>
@@ -19,6 +20,7 @@
 		<Header />
 		<WavedTagline />
 		<Goals />
+		<About />
 	</div>
 	<Footer />
 </main>

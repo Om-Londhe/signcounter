@@ -36,7 +36,7 @@
 		in:blur={{ duration: 444 }}
 	/>
 	<h2 id="text" bind:this={text} in:blur>SignCounter</h2>
-	<a href="/dashboard" id="button" bind:this={button} in:fly={{ y: 500, opacity: 0 }}>Dashboard</a>
+	<a href="/dashboard" id="button" bind:this={button} in:fly={{ y: 500, opacity: 0 }}>Let's go!</a>
 	<img
 		src="/mountains_front.png"
 		alt="mountains_front"
