@@ -37,7 +37,6 @@
 </div>
 
 <style>
-	@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 	.passwordCard {
 		background: #1f1b24;
 		border-radius: 11px;

@@ -3,9 +3,6 @@
 </div>
 
 <style>
-	@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
-	@import url('https://fonts.googleapis.com/css2?family=Merienda&display=swap');
-
 	.about {
 		margin-top: 44px;
 	}

@@ -10,9 +10,6 @@
 </div>
 
 <style>
-	@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@600&display=swap');
-	@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
-	@import url('https://fonts.googleapis.com/css2?family=Baloo+Paaji+2&display=swap');
 	.goalCard {
 		height: 275px;
 		width: 200px;

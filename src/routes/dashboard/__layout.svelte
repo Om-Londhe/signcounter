@@ -1,6 +1,28 @@
 <script>
+	import { goto } from '$app/navigation';
+	import { collection, getDoc, getFirestore } from '@firebase/firestore';
+	import { user } from '../../../services/stores';
+	import { onMount } from 'svelte';
 	import BottomNav from '../../components/bottomNav.svelte';
 	import Navbar from '../../components/navbar.svelte';
+	import Loader from '../components/commons/loader.svelte';
+
+	onMount(() => {
+		const userID = localStorage.getItem('userID');
+		if (userID) {
+			getDoc(collection(getFirestore(), 'Users', userID))
+				.then((value) => {
+					user.update((_) => ({
+						id: value.id,
+						email,
+						passwords: value.data().passwords
+					}));
+				})
+				.catch((error) => alert(error));
+		} else {
+			goto('/');
+		}
+	});
 </script>
 
 <svelte:head>
@@ -9,13 +31,17 @@
 		rel="stylesheet"
 	/>
 </svelte:head>
-<main>
-	<Navbar />
-	<div class="content">
-		<slot />
-	</div>
-	<BottomNav />
-</main>
+{#if $user?.id}
+	<main>
+		<Navbar />
+		<div class="content">
+			<slot />
+		</div>
+		<BottomNav />
+	</main>
+{:else}
+	<Loader />
+{/if}
 
 <style>
 	main {

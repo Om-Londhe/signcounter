@@ -1,0 +1,82 @@
+<script>
+	import { blur, slide } from 'svelte/transition';
+
+	let snackbar;
+	export let hideSnackbar = () => {};
+	export let showSnackbar = false;
+	export let autoDismissDuration = 2121;
+	export let inTransition = slide;
+	export let outTransition = blur;
+	export let text = 'Welcome to the Snackbar by Om Londhe.';
+	export let borderTopLeftRadius = '7px';
+	export let borderTopRightRadius = '7px';
+	export let borderBottomLeftRadius = '7px';
+	export let borderBottomRightRadius = '7px';
+	export let borderWidth = '2px';
+	export let borderColor = '#98FB98';
+	export let backgroundColor = 'lightgreen';
+	export let showHighlightBorder = false;
+	export let highlightBorderColor = 'lightgreen';
+	export let highlightBorderWidth = '2px';
+	export let textColor = 'black';
+
+	const snackbatStyle = `border-bottom-left-radius: ${borderBottomLeftRadius};border-bottom-right-radius: ${borderBottomRightRadius};border-top-right-radius: ${borderTopRightRadius};border-top-left-radius: ${borderTopLeftRadius};border-width: ${borderWidth};border-color: ${borderColor};background-color: ${backgroundColor}; border-left-color: ${
+		showHighlightBorder ? highlightBorderColor : borderColor
+	};border-left-width: ${showHighlightBorder ? highlightBorderWidth : borderWidth}`;
+	const textStyle = `color: ${textColor}`;
+
+	$: if (showSnackbar && autoDismissDuration) {
+		setTimeout(hideSnackbar, autoDismissDuration);
+	}
+</script>
+
+{#if showSnackbar}
+	<div
+		class="snackbar"
+		style={snackbatStyle}
+		bind:this={snackbar}
+		in:inTransition
+		out:outTransition
+	>
+		<p class="text" style={textStyle}>{text}</p>
+		<div class="icon" on:click={hideSnackbar}>
+			<ion-icon name="close-outline" />
+		</div>
+	</div>
+{/if}
+
+<style>
+	.snackbar {
+		position: fixed;
+		top: 100%;
+		left: calc(50% - 4px);
+		transform: translateX(-50%) translateY(-120%);
+		width: fit-content;
+		max-width: 800px;
+		margin-left: 4px;
+		margin-right: 4px;
+		display: flex;
+		align-items: center;
+		z-index: 9999;
+		padding-top: 7px;
+		padding-bottom: 7px;
+		border-style: solid;
+	}
+	.text {
+		margin-left: 11px;
+		flex: 1;
+		font-size: 14px;
+	}
+	.icon {
+		margin: 0;
+		padding: 0;
+		display: grid;
+		place-items: center;
+		margin-right: 11px !important;
+		margin-left: 11px !important;
+		border-radius: 50%;
+		height: 24px;
+		width: 24px;
+		cursor: pointer;
+	}
+</style>

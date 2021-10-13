@@ -1,16 +1,61 @@
 <script>
-	let email = '';
+	import { getAuth, sendSignInLinkToEmail } from 'firebase/auth';
+	import { slide } from 'svelte/transition';
+	import Snackbar from '../commons/snackbar.svelte';
+	import { blur } from 'svelte/transition';
+	import { getApp } from '@firebase/app';
 
-	const submit = () => {};
+	let email = '';
+	let isFocused = false;
+	let showSnackbar = false;
+	let loading = false;
+
+	const hideSnackbar = () => (showSnackbar = false);
+
+	const actionCodeSettings = {
+		// URL you want to redirect back to. The domain (www.example.com) for this
+		// URL must be in the authorized domains list in the Firebase Console.
+		url: 'https://www.example.com/finishSignUp?cartId=1234',
+		// This must be true.
+		handleCodeInApp: true
+	};
+
+	const toggleFocus = () => (isFocused = !isFocused);
+
+	const submit = () => {
+		loading = !loading;
+		// localStorage.setItem('loginEmail', email);
+		// loading = true;
+		// sendSignInLinkToEmail(getAuth(getApp()), email, actionCodeSettings)
+		// 	.then(() => (showSnackbar = true))
+		// 	.catch((error) => alert(error));
+	};
 </script>
 
 <div class="loginContainer">
-	<div class="formField">
-		<input placeholder="Enter your E-mail to login" type="email" bind:value={email} required />
-		<div class="icon">
-			<ion-icon name="chevron-forward-outline" on:click|preventDefault={submit} />
-		</div>
-	</div>
+	<Snackbar
+		{showSnackbar}
+		{hideSnackbar}
+		outTransition={slide}
+		text={`Click the link in your email '${email} to login.'`}
+	/>
+	<form class="formField" class:isFocused on:submit|preventDefault={submit}>
+		{#if loading}
+			<progress style="margin: auto;" in:blur />
+		{:else}
+			<input
+				placeholder="Enter your E-mail to login"
+				type="email"
+				bind:value={email}
+				on:blur={toggleFocus}
+				on:focus={toggleFocus}
+				required
+			/>
+			<button type="submit" class="icon" class:isFocused>
+				<ion-icon name="chevron-forward-outline" />
+			</button>
+		{/if}
+	</form>
 </div>
 
 <style>
@@ -19,7 +64,7 @@
 		padding: 7px;
 		display: grid;
 		place-items: center;
-		height: 100px;
+		height: 124px;
 	}
 	.formField {
 		display: flex;
@@ -27,9 +72,9 @@
 		width: 100%;
 		max-width: 521px;
 		border-radius: 51px;
-		background: #ff1e67;
-		box-shadow: inset 5px 5px 10px #db1a59, inset -5px -5px 10px #ff2275;
-		border: 1px solid #ff3f89;
+		background: #1c0522;
+		transition: 271ms;
+		height: 50%;
 	}
 	.formField input {
 		flex: 1;
@@ -38,23 +83,23 @@
 		border: none;
 		font-size: 16px;
 		padding: 11px;
-		color: #1c0522;
+		padding-left: 17px;
+		color: #fff;
 		font-weight: 500;
 	}
-	.formField input::placeholder {
-		color: #333;
-	}
 	.icon {
-		width: 38px;
-		height: 38px;
+		width: 60px;
+		height: calc(100% - 4px);
 		margin-right: 2px;
 		border-radius: 50%;
 		border: none;
 		display: grid;
 		place-items: center;
-		background: #ff1e67;
-		box-shadow: inset 5px 5px 10px #db1a59, inset -5px -5px 10px #ff2275;
-		border-left: 1px solid #ff3f89;
+		background: #03dac5;
 		cursor: pointer;
+		transition: 271ms;
+	}
+	.isFocused {
+		box-shadow: none;
 	}
 </style>

@@ -11,7 +11,6 @@
 </button>
 
 <style>
-	@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 	.submitButton {
 		height: 40px;
 		outline: none;

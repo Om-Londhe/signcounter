@@ -34,8 +34,6 @@
 </div>
 
 <style>
-	@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
-	@import url('https://fonts.googleapis.com/css2?family=Merienda&display=swap');
 	.goalsContainer {
 		width: 100%;
 		padding-top: 121px;

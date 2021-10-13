@@ -25,23 +25,26 @@
 		alt="stars"
 		id="stars"
 		bind:this={stars}
-		in:blur={{ delay: 271, duration: 751 }}
+		in:blur={{ delay: 321, duration: 771 }}
 	/>
-	<img src="/moon.png" alt="moon" id="moon" bind:this={moon} in:blur={{ duration: 1121 }} />
+	<img src="/moon.png" alt="moon" id="moon" bind:this={moon} in:blur={{ duration: 1551 }} />
 	<img
 		src="/mountains_behind.png"
 		alt="mountains_behind"
 		id="mountains_behind"
 		bind:this={mountains_behind}
-		in:blur={{ duration: 444 }}
+		in:blur={{ duration: 571, delay: 271 }}
 	/>
-	<h2 id="text" bind:this={text} in:blur>SignCounter</h2>
-	<a href="/dashboard" id="button" bind:this={button} in:fly={{ y: 500, opacity: 0 }}>Let's go!</a>
+	<h2 id="text" bind:this={text} in:blur={{ delay: 1221 }}>SignCounter</h2>
+	<a href="/dashboard" id="button" bind:this={button} in:fly={{ y: 500, opacity: 0, delay: 1221 }}
+		>Let's go!</a
+	>
 	<img
 		src="/mountains_front.png"
 		alt="mountains_front"
 		id="mountains_front"
 		bind:this={mountains_front}
+		in:blur={{ duration: 571, delay: 271 }}
 	/>
 </section>
 

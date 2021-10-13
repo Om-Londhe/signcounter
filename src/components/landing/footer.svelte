@@ -51,8 +51,6 @@
 </footer>
 
 <style>
-	@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
-	@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 	footer {
 		position: relative;
 		width: 100%;

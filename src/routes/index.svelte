@@ -16,7 +16,7 @@
 </svelte:head>
 <main>
 	<ParallaxHero {scrollY} />
-	<div class="content" in:blur>
+	<div class="content" in:blur|local>
 		<Header />
 		<WavedTagline />
 		<Goals />

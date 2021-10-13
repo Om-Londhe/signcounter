@@ -58,7 +58,6 @@
 </form>
 
 <style>
-	@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 	.inputForm {
 		border-radius: 11px;
 		padding: 21px;
