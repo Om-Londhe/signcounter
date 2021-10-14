@@ -1,15 +1,15 @@
 <script>
-	import { addDoc, collection, getDoc, getFirestore, query, where } from '@firebase/firestore';
+	import { addDoc, collection, getDoc, getFirestore, query, where } from 'firebase/firestore';
 	import { getAuth, isSignInWithEmailLink, signInWithEmailLink } from 'firebase/auth';
-	import Loader from '../components/commons/loader.svelte';
 	import { user } from '../../services/stores';
-	import { getApp } from '@firebase/app';
+	import { getFirebaseApp } from '../../services/firebase';
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
-
-	const auth = getAuth(getApp());
+	import Loader from '../components/commons/loader.svelte';
 
 	onMount(() => {
+		const auth = getAuth(getFirebaseApp());
+		const db = getFirestore(getFirebaseApp());
 		if (isSignInWithEmailLink(auth, location.href)) {
 			let email = localStorage.getItem('loginEmail');
 			if (!email) {
@@ -18,8 +18,8 @@
 			signInWithEmailLink(auth, email, location.href)
 				.then((result) => {
 					localStorage.removeItem('loginEmail');
-					if (result.additionalUserInfo.isNewUser) {
-						addDoc(collection(getFirestore(), 'Users'), {
+					if (result._tokenResponse.isNewUser) {
+						addDoc(collection(db, 'Users'), {
 							email,
 							passwords: []
 						})
@@ -34,7 +34,7 @@
 							})
 							.catch((error) => alert(error));
 					} else {
-						getDoc(query(collection(getFirestore(), 'Users'), where('email', '==', email)))
+						getDoc(query(collection(db, 'Users'), where('email', '==', email)))
 							.then((value) => {
 								localStorage.setItem('userID', value.id);
 								user.update((_) => ({

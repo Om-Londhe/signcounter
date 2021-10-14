@@ -1,28 +1,20 @@
 <script>
 	import { goto } from '$app/navigation';
-	import { collection, getDoc, getFirestore } from '@firebase/firestore';
+	import { collection, getDoc, getFirestore } from 'firebase/firestore';
 	import { user } from '../../../services/stores';
 	import { onMount } from 'svelte';
+	import { getFirebaseApp } from '../../../services/firebase';
 	import BottomNav from '../../components/bottomNav.svelte';
 	import Navbar from '../../components/navbar.svelte';
-	import Loader from '../components/commons/loader.svelte';
+	import Loader from '../../components/commons/loader.svelte';
 
-	onMount(() => {
-		const userID = localStorage.getItem('userID');
-		if (userID) {
-			getDoc(collection(getFirestore(), 'Users', userID))
-				.then((value) => {
-					user.update((_) => ({
-						id: value.id,
-						email,
-						passwords: value.data().passwords
-					}));
-				})
-				.catch((error) => alert(error));
-		} else {
-			goto('/');
-		}
-	});
+	// onMount(() => {
+	// 	const userID = localStorage.getItem('userID');
+	// 	if (userID) {
+	// 	} else {
+	// 		goto('/');
+	// 	}
+	// });
 </script>
 
 <svelte:head>
@@ -40,7 +32,7 @@
 		<BottomNav />
 	</main>
 {:else}
-	<Loader />
+	<Loader text="Loading your passwords!" />
 {/if}
 
 <style>

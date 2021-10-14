@@ -1,9 +1,9 @@
 <script>
 	import { getAuth, sendSignInLinkToEmail } from 'firebase/auth';
-	import { slide } from 'svelte/transition';
+	import { slide, fly } from 'svelte/transition';
 	import Snackbar from '../commons/snackbar.svelte';
 	import { blur } from 'svelte/transition';
-	import { getApp } from '@firebase/app';
+	import { getFirebaseApp } from '../../../services/firebase';
 
 	let email = '';
 	let isFocused = false;
@@ -13,22 +13,21 @@
 	const hideSnackbar = () => (showSnackbar = false);
 
 	const actionCodeSettings = {
-		// URL you want to redirect back to. The domain (www.example.com) for this
-		// URL must be in the authorized domains list in the Firebase Console.
-		url: 'https://www.example.com/finishSignUp?cartId=1234',
-		// This must be true.
+		url: 'http://localhost:3000/verify',
 		handleCodeInApp: true
 	};
 
 	const toggleFocus = () => (isFocused = !isFocused);
 
 	const submit = () => {
-		loading = !loading;
-		// localStorage.setItem('loginEmail', email);
-		// loading = true;
-		// sendSignInLinkToEmail(getAuth(getApp()), email, actionCodeSettings)
-		// 	.then(() => (showSnackbar = true))
-		// 	.catch((error) => alert(error));
+		localStorage.setItem('loginEmail', email);
+		loading = true;
+		sendSignInLinkToEmail(getAuth(getFirebaseApp()), email, actionCodeSettings)
+			.then(() => {
+				showSnackbar = true;
+				loading = false;
+			})
+			.catch((error) => alert(error));
 	};
 </script>
 
@@ -50,8 +49,9 @@
 				on:blur={toggleFocus}
 				on:focus={toggleFocus}
 				required
+				in:fly={{ x: -100, opacity: 0 }}
 			/>
-			<button type="submit" class="icon" class:isFocused>
+			<button type="submit" class="icon" class:isFocused in:fly={{ x: 100, opacity: 0 }}>
 				<ion-icon name="chevron-forward-outline" />
 			</button>
 		{/if}
