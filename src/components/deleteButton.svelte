@@ -1,7 +1,7 @@
 <script>
 </script>
 
-<button class="deleteButton" type="submit">
+<button class="deleteButton" on:click type="button">
 	<span class="material-icons-outlined icon"> delete </span>
 	<span class="buttonText">Delete</span>
 </button>

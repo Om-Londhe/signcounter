@@ -16,9 +16,11 @@
 	let loading = false;
 	let showTitleError = false;
 	let showPasswordError = false;
+	let showPasswordAddedSnackbar = false;
 
 	const hideTitleErrorSnackbar = () => (showTitleError = false);
 	const hidePasswordErrorSnackbar = () => (showPasswordError = false);
+	const hidePasswordAddedSnackbar = () => (showPasswordAddedSnackbar = false);
 
 	const toggleIsInputFormExpanded = () => {
 		isInputFormExpanded = !isInputFormExpanded;
@@ -59,6 +61,7 @@
 						title = '';
 						password = '';
 						isInputFormExpanded = false;
+						showPasswordAddedSnackbar = true;
 					})
 				);
 		}
@@ -86,6 +89,11 @@
 		text="Password cannot be less than 8 letters."
 		showSnackbar={showPasswordError}
 		hideSnackbar={hidePasswordErrorSnackbar}
+	/>
+	<Snackbar
+		text="Password added successfully!"
+		showSnackbar={showPasswordAddedSnackbar}
+		hideSnackbar={hidePasswordAddedSnackbar}
 	/>
 	<div class="titleSection" on:click={toggleIsInputFormExpanded}>
 		<p class="title" class:titleExpanded={isInputFormExpanded}>Add a new Password</p>

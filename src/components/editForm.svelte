@@ -3,13 +3,43 @@
 	import SubmitButton from './submitButton.svelte';
 	import { fade } from 'svelte/transition';
 	import DeleteButton from './deleteButton.svelte';
+	import { onMount } from 'svelte';
+	import { user } from '../../services/stores';
+	import Snackbar from './commons/snackbar.svelte';
+	import { arrayRemove, arrayUnion, doc, getFirestore, updateDoc } from 'firebase/firestore';
+	import { getFirebaseApp } from '../../services/firebase';
 
 	export let title;
+	export let timestamp;
 	export let oldPassword;
 
 	let isInputFormExpanded = false;
-	let password = oldPassword;
 	let titleIcon;
+	let password = '';
+	let showTitleError = false;
+	let showPasswordError = false;
+	let showPasswordUpdatedSnackbar = false;
+	let showPasswordDeletedSnackbar = false;
+
+	const hideTitleErrorSnackbar = () => (showTitleError = false);
+	const hidePasswordErrorSnackbar = () => (showPasswordError = false);
+	const hidePasswordUpdatedSnackbar = () => (showPasswordUpdatedSnackbar = false);
+	const hidePasswordDeletedSnackbar = () => (showPasswordDeletedSnackbar = false);
+
+	onMount(() => {
+		fetch('/api/password/depass', {
+			body: JSON.stringify({
+				encryptedPassword: oldPassword
+			}),
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json'
+			},
+			method: 'POST'
+		})
+			.then((response) => response.json())
+			.then((value) => (password = value.decryptedPassword));
+	});
 
 	const toggleIsInputFormExpanded = () => {
 		isInputFormExpanded = !isInputFormExpanded;
@@ -20,9 +50,56 @@
 		}
 	};
 
+	const deletePassword = () => {
+		updateDoc(doc(getFirestore(getFirebaseApp()), 'Users', $user?.id), {
+			passwords: arrayRemove({
+				timestamp: timestamp,
+				title,
+				password: oldPassword
+			})
+		}).then(() => {
+			showPasswordDeletedSnackbar = true;
+		});
+	};
+
 	const updatePassword = () => {
-		console.log(title);
-		console.log(password);
+		if (title.length < 2) {
+			showTitleError = true;
+		} else if (password.length < 8) {
+			showPasswordError = true;
+		} else {
+			// loading = true;
+			fetch('/api/password/encpass', {
+				body: JSON.stringify({
+					decryptedPassword: password
+				}),
+				headers: {
+					Accept: 'application/json',
+					'Content-Type': 'application/json'
+				},
+				method: 'POST'
+			})
+				.then((response) => response.json())
+				.then((value) =>
+					updateDoc(doc(getFirestore(getFirebaseApp()), 'Users', $user?.id), {
+						passwords: arrayRemove({
+							timestamp: timestamp,
+							title,
+							password: oldPassword
+						})
+					}).then(() => {
+						updateDoc(doc(getFirestore(getFirebaseApp()), 'Users', $user?.id), {
+							passwords: arrayUnion({
+								timestamp: new Date(),
+								title,
+								password: value.encryptedPassword
+							})
+						}).then(() => {
+							showPasswordUpdatedSnackbar = true;
+						});
+					})
+				);
+		}
 	};
 </script>
 
@@ -32,6 +109,35 @@
 	in:fade
 	on:submit|preventDefault={updatePassword}
 >
+	<Snackbar
+		backgroundColor="#cf6679"
+		borderColor="tomato"
+		iconColor="black"
+		text="Title must be at least 2 characters long."
+		showSnackbar={showTitleError}
+		hideSnackbar={hideTitleErrorSnackbar}
+	/>
+	<Snackbar
+		backgroundColor="#cf6679"
+		borderColor="tomato"
+		iconColor="black"
+		text="Password cannot be less than 8 letters."
+		showSnackbar={showPasswordError}
+		hideSnackbar={hidePasswordErrorSnackbar}
+	/>
+	<Snackbar
+		backgroundColor="#cf6679"
+		borderColor="tomato"
+		iconColor="black"
+		text="Password deleted."
+		showSnackbar={showPasswordDeletedSnackbar}
+		hideSnackbar={hidePasswordDeletedSnackbar}
+	/>
+	<Snackbar
+		text="Password added successfully!"
+		showSnackbar={showPasswordUpdatedSnackbar}
+		hideSnackbar={hidePasswordUpdatedSnackbar}
+	/>
 	<div class="titleSection" on:click={toggleIsInputFormExpanded}>
 		<p class="title" class:titleExpanded={isInputFormExpanded}>{title}</p>
 		<span bind:this={titleIcon} class="material-icons-outlined title-icons">
@@ -48,7 +154,7 @@
 	<div class="gap" />
 	<div class="bottom">
 		<SubmitButton title="Update" />
-		<DeleteButton />
+		<DeleteButton on:click={deletePassword} />
 	</div>
 </form>
 
@@ -62,6 +168,7 @@
 		position: relative;
 		max-height: 21px;
 		overflow: hidden;
+		margin-bottom: 7px;
 	}
 	.inputFormExpanded {
 		max-height: 251px;
