@@ -36,18 +36,31 @@
 			showPasswordError = true;
 		} else {
 			loading = true;
-			updateDoc(doc(getFirestore(getFirebaseApp()), 'Users', $user?.id), {
-				passwords: arrayUnion({
-					timestamp: new Date(),
-					title,
-					password
-				})
-			}).then(() => {
-				loading = false;
-				title = '';
-				password = '';
-				isInputFormExpanded = false;
-			});
+			fetch('/api/password/encpass', {
+				body: JSON.stringify({
+					decryptedPassword: password
+				}),
+				headers: {
+					Accept: 'application/json',
+					'Content-Type': 'application/json'
+				},
+				method: 'POST'
+			})
+				.then((response) => response.json())
+				.then((value) =>
+					updateDoc(doc(getFirestore(getFirebaseApp()), 'Users', $user?.id), {
+						passwords: arrayUnion({
+							timestamp: new Date(),
+							title,
+							password: value.encryptedPassword
+						})
+					}).then(() => {
+						loading = false;
+						title = '';
+						password = '';
+						isInputFormExpanded = false;
+					})
+				);
 		}
 	};
 </script>

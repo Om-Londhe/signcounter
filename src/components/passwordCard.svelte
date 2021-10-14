@@ -7,9 +7,22 @@
 
 	const copyPassword = () => {
 		if (!copied) {
-			navigator.clipboard.writeText(password);
-			copied = true;
-			setTimeout(() => (copied = false), 1421);
+			fetch('/api/password/depass', {
+				body: JSON.stringify({
+					encryptedPassword: password
+				}),
+				headers: {
+					Accept: 'application/json',
+					'Content-Type': 'application/json'
+				},
+				method: 'POST'
+			})
+				.then((response) => response.json())
+				.then((value) => {
+					navigator.clipboard.writeText(value.decryptedPassword);
+					copied = true;
+					setTimeout(() => (copied = false), 1421);
+				});
 		}
 	};
 </script>

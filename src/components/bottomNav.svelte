@@ -32,7 +32,7 @@
 
 <style>
 	.bottomNav {
-		height: 57px;
+		height: 60px;
 		width: 98%;
 		margin-left: 1%;
 		margin-right: 1%;
