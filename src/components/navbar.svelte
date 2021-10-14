@@ -42,6 +42,7 @@
 	.logo {
 		margin-left: 21px;
 		cursor: pointer;
+		margin-top: 11px;
 	}
 	.right {
 		display: flex;

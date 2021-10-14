@@ -2,12 +2,23 @@
 	import FormField from './formField.svelte';
 	import SubmitButton from './submitButton.svelte';
 	import { fade } from 'svelte/transition';
+	import Snackbar from './commons/snackbar.svelte';
+	import { arrayUnion, doc, getFirestore, updateDoc } from 'firebase/firestore';
+	import { getFirebaseApp } from '../../services/firebase';
+	import { user } from '../../services/stores';
+	import ActivityIndicator from './commons/activityIndicator.svelte';
 
 	let isInputFormExpanded = false;
 
 	let title = '';
 	let password = '';
 	let titleIcon;
+	let loading = false;
+	let showTitleError = false;
+	let showPasswordError = false;
+
+	const hideTitleErrorSnackbar = () => (showTitleError = false);
+	const hidePasswordErrorSnackbar = () => (showPasswordError = false);
 
 	const toggleIsInputFormExpanded = () => {
 		isInputFormExpanded = !isInputFormExpanded;
@@ -19,8 +30,25 @@
 	};
 
 	const addPassword = () => {
-		console.log(title);
-		console.log(password);
+		if (title.length < 2) {
+			showTitleError = true;
+		} else if (password.length < 8) {
+			showPasswordError = true;
+		} else {
+			loading = true;
+			updateDoc(doc(getFirestore(getFirebaseApp()), 'Users', $user?.id), {
+				passwords: arrayUnion({
+					timestamp: new Date(),
+					title,
+					password
+				})
+			}).then(() => {
+				loading = false;
+				title = '';
+				password = '';
+				isInputFormExpanded = false;
+			});
+		}
 	};
 </script>
 
@@ -30,6 +58,22 @@
 	in:fade
 	on:submit|preventDefault={addPassword}
 >
+	<Snackbar
+		backgroundColor="#cf6679"
+		borderColor="tomato"
+		iconColor="black"
+		text="Title must be at least 2 characters long."
+		showSnackbar={showTitleError}
+		hideSnackbar={hideTitleErrorSnackbar}
+	/>
+	<Snackbar
+		backgroundColor="#cf6679"
+		borderColor="tomato"
+		iconColor="black"
+		text="Password cannot be less than 8 letters."
+		showSnackbar={showPasswordError}
+		hideSnackbar={hidePasswordErrorSnackbar}
+	/>
 	<div class="titleSection" on:click={toggleIsInputFormExpanded}>
 		<p class="title" class:titleExpanded={isInputFormExpanded}>Add a new Password</p>
 		<span bind:this={titleIcon} class="material-icons-outlined title-icons">
@@ -54,7 +98,11 @@
 		on:change={(e) => (password = e.target.value)}
 	/>
 	<div class="gap" />
-	<SubmitButton title=" Add " />
+	{#if loading}
+		<ActivityIndicator />
+	{:else}
+		<SubmitButton title=" Add " />
+	{/if}
 </form>
 
 <style>

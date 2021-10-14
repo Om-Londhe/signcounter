@@ -1,10 +1,9 @@
 <script>
 	import { blur, slide } from 'svelte/transition';
 
-	let snackbar;
 	export let hideSnackbar = () => {};
 	export let showSnackbar = false;
-	export let autoDismissDuration = 2121;
+	export let autoDismissDuration = 2424;
 	export let inTransition = slide;
 	export let outTransition = blur;
 	export let text = 'Welcome to the Snackbar by Om Londhe.';
@@ -19,10 +18,19 @@
 	export let highlightBorderColor = 'lightgreen';
 	export let highlightBorderWidth = '2px';
 	export let textColor = 'black';
+	export let iconColor = 'black';
 
-	const snackbatStyle = `border-bottom-left-radius: ${borderBottomLeftRadius};border-bottom-right-radius: ${borderBottomRightRadius};border-top-right-radius: ${borderTopRightRadius};border-top-left-radius: ${borderTopLeftRadius};border-width: ${borderWidth};border-color: ${borderColor};background-color: ${backgroundColor}; border-left-color: ${
-		showHighlightBorder ? highlightBorderColor : borderColor
-	};border-left-width: ${showHighlightBorder ? highlightBorderWidth : borderWidth}`;
+	const snackbatStyle = `
+		border-bottom-left-radius: ${borderBottomLeftRadius};
+		border-bottom-right-radius: ${borderBottomRightRadius};
+		border-top-right-radius: ${borderTopRightRadius};
+		border-top-left-radius: ${borderTopLeftRadius};
+		border-width: ${borderWidth};
+		border-color: ${borderColor};
+		background-color: ${backgroundColor};
+		border-left-color: ${showHighlightBorder ? highlightBorderColor : borderColor};
+		border-left-width: ${showHighlightBorder ? highlightBorderWidth : borderWidth};
+	`;
 	const textStyle = `color: ${textColor}`;
 
 	$: if (showSnackbar && autoDismissDuration) {
@@ -31,16 +39,19 @@
 </script>
 
 {#if showSnackbar}
-	<div
-		class="snackbar"
-		style={snackbatStyle}
-		bind:this={snackbar}
-		in:inTransition
-		out:outTransition
-	>
+	<div class="snackbar" style={snackbatStyle} in:inTransition out:outTransition>
 		<p class="text" style={textStyle}>{text}</p>
 		<div class="icon" on:click={hideSnackbar}>
-			<ion-icon name="close-outline" />
+			<svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"
+				><title>Close</title><path
+					fill="none"
+					stroke={iconColor}
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					stroke-width="32"
+					d="M368 368L144 144M368 144L144 368"
+				/></svg
+			>
 		</div>
 	</div>
 {/if}

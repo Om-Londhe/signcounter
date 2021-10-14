@@ -1,31 +1,43 @@
 <script>
 	import { page } from '$app/stores';
+	import { fly } from 'svelte/transition';
 </script>
 
 <div class="bottomNav">
 	<ul class="links">
 		<li
 			class="indicator"
-			style="left: {$page.path === '/dashboard' ? 'calc(25% - 29px)' : 'calc(75% - 23px)'};"
+			style="left: {$page.path === '/dashboard' ? 'calc(25% - 54px)' : 'calc(75% - 58px)'}; 
+				width: {$page.path === '/dashboard' ? '100px' : '124px'}"
 		/>
 		<li class="link">
 			<a href="/dashboard" class:active={$page.path === '/dashboard'}>
-				<span class="material-icons-round icon"> house </span></a
-			>
+				<div class="tab" class:activeTab={$page.path === '/dashboard'}>
+					<span class="material-icons-round icon"> house </span>
+					<span class="tab-text">&nbsp;Home</span>
+				</div>
+			</a>
 		</li>
 		&nbsp;&nbsp;&nbsp;&nbsp;
 		<li class="link">
-			<a href="/dashboard/manage" class:active={$page.path === '/dashboard/manage'}
-				><span class="material-icons-round icon"> manage_accounts </span></a
-			>
+			<a href="/dashboard/manage" class:active={$page.path === '/dashboard/manage'}>
+				<div class="tab" class:activeTab={$page.path === '/dashboard/manage'}>
+					<span class="material-icons-round icon"> manage_accounts </span>
+					<span class="tab-text">&nbsp;Manage</span>
+				</div>
+			</a>
 		</li>
 	</ul>
 </div>
 
 <style>
 	.bottomNav {
-		height: 75px;
-		width: 100%;
+		height: 57px;
+		width: 98%;
+		margin-left: 1%;
+		margin-right: 1%;
+		margin-bottom: 4px;
+		border-radius: 51px;
 		background: #212121;
 		display: flex;
 		justify-content: space-between;
@@ -57,12 +69,12 @@
 	.link a {
 		width: 100%;
 		height: 100%;
-		display: grid;
-		place-items: center;
 		text-decoration: none;
 		color: grey;
 		transition: all 251ms;
 		user-select: none;
+		display: grid;
+		place-items: center;
 	}
 	a:hover {
 		color: white;
@@ -70,13 +82,26 @@
 	.active {
 		color: black !important;
 	}
+	.tab {
+		display: flex;
+		align-items: center;
+		max-width: 24px;
+		overflow: hidden;
+		transition: 721ms;
+	}
+	.activeTab {
+		max-width: 110px;
+	}
 	.icon {
-		font-size: 30px;
+		font-size: 24px;
+	}
+	.tab-text {
+		font-size: 15px;
 	}
 	.indicator {
 		position: absolute;
 		width: 50px;
-		height: 50px;
+		height: 44px;
 		background: white;
 		z-index: 0;
 		border-radius: 51px;

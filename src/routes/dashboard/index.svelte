@@ -1,12 +1,15 @@
 <script>
 	import PasswordCard from '../../components/passwordCard.svelte';
 	import InputForm from '../../components/inputForm.svelte';
+	import { user } from '../../../services/stores';
 </script>
 
 <main>
 	<InputForm />
 	<div class="passwords">
-		<PasswordCard title="Instagram" password="Password" />
+		{#each $user?.passwords as password (password.timestamp)}
+			<PasswordCard title={password.title} password={password.password} />
+		{/each}
 	</div>
 </main>
 

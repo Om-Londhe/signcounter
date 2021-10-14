@@ -3,6 +3,7 @@
 	export let type;
 	export let id;
 	export let placeholder;
+	export let required = false;
 	let isFocused = false;
 	let runtimeType = type;
 
@@ -16,6 +17,7 @@
 		type={type === 'password' ? runtimeType : type}
 		{id}
 		{value}
+		{required}
 		on:focus={toggleFocus}
 		on:blur={toggleFocus}
 		on:change

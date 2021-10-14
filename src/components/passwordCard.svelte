@@ -41,6 +41,7 @@
 		background: #1f1b24;
 		border-radius: 11px;
 		padding: 21px;
+		margin-bottom: 7px;
 		border: 1px solid #49375e;
 		display: flex;
 		align-items: center;
