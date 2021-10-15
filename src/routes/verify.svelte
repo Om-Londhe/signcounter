@@ -1,5 +1,13 @@
 <script>
-	import { addDoc, collection, getDoc, getFirestore, query, where } from 'firebase/firestore';
+	import {
+		addDoc,
+		collection,
+		getDoc,
+		getDocs,
+		getFirestore,
+		query,
+		where
+	} from 'firebase/firestore';
 	import { getAuth, isSignInWithEmailLink, signInWithEmailLink } from 'firebase/auth';
 	import { user } from '../../services/stores';
 	import { getFirebaseApp } from '../../services/firebase';
@@ -19,6 +27,7 @@
 				.then((result) => {
 					localStorage.removeItem('loginEmail');
 					if (result._tokenResponse.isNewUser) {
+						console.log('isNew');
 						addDoc(collection(db, 'Users'), {
 							email,
 							passwords: []
@@ -34,22 +43,20 @@
 							})
 							.catch((error) => alert(error));
 					} else {
-						getDoc(query(collection(db, 'Users'), where('email', '==', email)))
+						getDocs(query(collection(db, 'Users'), where('email', '==', email)))
 							.then((value) => {
-								localStorage.setItem('userID', value.id);
+								localStorage.setItem('userID', value.docs[0].id);
 								user.update((_) => ({
-									id: value.id,
+									id: value.docs[0].id,
 									email,
-									passwords: value.data().passwords
+									passwords: value.docs[0].data().passwords
 								}));
 								goto('/dashboard');
 							})
 							.catch((error) => alert(error));
 					}
 				})
-				.catch((error) => {
-					alert(error);
-				});
+				.catch((error) => alert(`siwel-${error}`));
 		}
 	});
 </script>

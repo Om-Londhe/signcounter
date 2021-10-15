@@ -2,14 +2,18 @@
 	import { user } from '../../../services/stores';
 	import EditForm from '../../components/editForm.svelte';
 	import { flip } from 'svelte/animate';
-	import { fade, blur } from 'svelte/transition';
+	import { fade, blur, fly } from 'svelte/transition';
+	import { backInOut } from 'svelte/easing';
 
 	$: passwords = $user?.passwords.sort((a, b) => b.timestamp - a.timestamp);
 </script>
 
-<main>
-	{#each passwords as password (password.timestamp)}
-		<div animate:flip={{ duration: 444, delay: 271 }} in:fade out:blur|local>
+<main
+	in:fly|local={{ x: 500, duration: 444, delay: 444, opacity: 0, easing: backInOut }}
+	out:fly|local={{ x: 500, opacity: 0, easing: backInOut }}
+>
+	{#each passwords as password (password.timestamp.toDate())}
+		<div animate:flip={{ duration: 200 }} in:fade>
 			<EditForm
 				timestamp={password.timestamp}
 				title={password.title}

@@ -6,8 +6,16 @@
 	import { onMount } from 'svelte';
 	import { user } from '../../services/stores';
 	import Snackbar from './commons/snackbar.svelte';
-	import { arrayRemove, arrayUnion, doc, getFirestore, updateDoc } from 'firebase/firestore';
+	import {
+		arrayRemove,
+		arrayUnion,
+		doc,
+		getFirestore,
+		runTransaction,
+		updateDoc
+	} from 'firebase/firestore';
 	import { getFirebaseApp } from '../../services/firebase';
+	import ActivityIndicator from './commons/activityIndicator.svelte';
 
 	export let title;
 	export let timestamp;
@@ -16,6 +24,7 @@
 	let isInputFormExpanded = false;
 	let titleIcon;
 	let password = '';
+	let loading = false;
 	let showTitleError = false;
 	let showPasswordError = false;
 	let showPasswordUpdatedSnackbar = false;
@@ -68,7 +77,7 @@
 		} else if (password.length < 8) {
 			showPasswordError = true;
 		} else {
-			// loading = true;
+			loading = true;
 			fetch('/api/password/encpass', {
 				body: JSON.stringify({
 					decryptedPassword: password
@@ -80,25 +89,30 @@
 				method: 'POST'
 			})
 				.then((response) => response.json())
-				.then((value) =>
-					updateDoc(doc(getFirestore(getFirebaseApp()), 'Users', $user?.id), {
-						passwords: arrayRemove({
-							timestamp: timestamp,
-							title,
-							password: oldPassword
-						})
-					}).then(() => {
-						updateDoc(doc(getFirestore(getFirebaseApp()), 'Users', $user?.id), {
-							passwords: arrayUnion({
-								timestamp: new Date(),
-								title,
-								password: value.encryptedPassword
+				.then((value) => {
+					const db = getFirestore(getFirebaseApp());
+					runTransaction(db, async (transaction) => {
+						transaction
+							.update(doc(db, 'Users', $user?.id), {
+								passwords: arrayRemove({
+									timestamp: timestamp,
+									title,
+									password: oldPassword
+								})
 							})
-						}).then(() => {
-							showPasswordUpdatedSnackbar = true;
-						});
-					})
-				);
+							.update(doc(db, 'Users', $user?.id), {
+								passwords: arrayUnion({
+									timestamp: new Date(),
+									title,
+									password: value.encryptedPassword
+								})
+							});
+					}).then(() => {
+						loading = false;
+						isInputFormExpanded = false;
+						showPasswordUpdatedSnackbar = true;
+					});
+				});
 		}
 	};
 </script>
@@ -153,8 +167,12 @@
 	/>
 	<div class="gap" />
 	<div class="bottom">
-		<SubmitButton title="Update" />
-		<DeleteButton on:click={deletePassword} />
+		{#if loading}
+			<ActivityIndicator />
+		{:else}
+			<SubmitButton title="Update" />
+			<DeleteButton on:click={deletePassword} />
+		{/if}
 	</div>
 </form>
 

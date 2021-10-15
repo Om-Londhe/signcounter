@@ -1,11 +1,9 @@
 <script>
 	import ParallaxHero from '../components/landing/parallaxHero.svelte';
-	import Header from '../components/landing/header.svelte';
 	import { blur } from 'svelte/transition';
 	import WavedTagline from '../components/landing/wavedTagline.svelte';
 	import Footer from '../components/landing/footer.svelte';
 	import Goals from '../components/landing/goals.svelte';
-	import About from '../components/landing/about.svelte';
 
 	let scrollY;
 </script>
@@ -17,10 +15,8 @@
 <main>
 	<ParallaxHero {scrollY} />
 	<div class="content" in:blur|local>
-		<Header />
 		<WavedTagline />
 		<Goals />
-		<About />
 	</div>
 	<Footer />
 </main>
@@ -36,6 +32,6 @@
 		position: relative;
 		background: #1c0522;
 		padding-top: 111px;
-		height: 500vh;
+		/* height: 500vh; */
 	}
 </style>

@@ -54,6 +54,7 @@
 	footer {
 		position: relative;
 		width: 100%;
+		min-width: 50px;
 		background: #3586ff;
 		padding-top: 21px;
 		height: 250px;
@@ -83,7 +84,7 @@
 	}
 	footer .wave {
 		position: absolute;
-		top: -100px;
+		top: -95px;
 		left: 0;
 		width: 100%;
 		height: 100px;

@@ -105,7 +105,7 @@
 		background: white;
 		z-index: 0;
 		border-radius: 51px;
-		transition: all 444ms;
+		transition: all 444ms cubic-bezier(0.5, -0.5, 0.5, 1.5);
 		color: transparent;
 	}
 	@media only screen and (min-width: 750px) {

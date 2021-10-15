@@ -12,8 +12,8 @@
 
 	const hideSnackbar = () => (showSnackbar = false);
 
-	const actionCodeSettings = {
-		url: 'http://localhost:3000/verify',
+	$: actionCodeSettings = {
+		url: `https://signcounter.vercel.app/verify`,
 		handleCodeInApp: true
 	};
 
@@ -61,12 +61,14 @@
 <style>
 	.loginContainer {
 		width: 100%;
-		padding: 7px;
-		display: grid;
-		place-items: center;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 		height: 124px;
+		margin: 0;
 	}
 	.formField {
+		margin: 0;
 		display: flex;
 		align-items: center;
 		width: 100%;
@@ -86,6 +88,7 @@
 		padding-left: 17px;
 		color: #fff;
 		font-weight: 500;
+		min-width: 10px;
 	}
 	.icon {
 		width: 60px;
