@@ -9,7 +9,6 @@
 		"format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. ."
 	},
 	"devDependencies": {
-		"@sveltejs/adapter-netlify": "^1.0.0-next.33",
 		"@sveltejs/kit": "next",
 		"eslint": "^7.32.0",
 		"eslint-config-prettier": "^8.3.0",
@@ -20,6 +19,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@firebase/firestore": "^3.1.1",
 		"crypto-js": "^4.1.1",
 		"firebase": "^9.1.0"
 	}
