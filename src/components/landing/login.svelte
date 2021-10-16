@@ -1,7 +1,7 @@
 <script>
 	import { getAuth, sendSignInLinkToEmail } from 'firebase/auth';
 	import { slide, fly } from 'svelte/transition';
-	import Snackbar from '../commons/snackbar.svelte';
+	import Snackbar from 'svelte-snackbar';
 	import { blur } from 'svelte/transition';
 	import { getFirebaseApp } from '../../../services/firebase';
 

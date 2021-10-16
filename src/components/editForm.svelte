@@ -5,7 +5,7 @@
 	import DeleteButton from './deleteButton.svelte';
 	import { onMount } from 'svelte';
 	import { user } from '../../services/stores';
-	import Snackbar from './commons/snackbar.svelte';
+	import Snackbar from 'svelte-snackbar';
 	import {
 		arrayRemove,
 		arrayUnion,
