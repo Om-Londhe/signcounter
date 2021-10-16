@@ -13,7 +13,7 @@
 	const hideSnackbar = () => (showSnackbar = false);
 
 	$: actionCodeSettings = {
-		url: `https://signcounter.vercel.app/verify`,
+		url: `https://signcounter.omlondhe.codes/verify`,
 		handleCodeInApp: true
 	};
 
