@@ -2,7 +2,7 @@
 	import FormField from './formField.svelte';
 	import SubmitButton from './submitButton.svelte';
 	import { fade } from 'svelte/transition';
-	import Snackbar from 'svalte-snackbar';
+	import Snackbar from 'svelte-snackbar';
 	import { arrayUnion, doc, getFirestore, updateDoc } from 'firebase/firestore';
 	import { getFirebaseApp } from '../../services/firebase';
 	import { user } from '../../services/stores';
